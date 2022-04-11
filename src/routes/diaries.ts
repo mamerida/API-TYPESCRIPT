@@ -18,8 +18,16 @@ router.get('/:id',(req,res) =>{
 
 
 //agrega entradas
-router.post('/',(_req,res) =>{
-    res.send('Saving a diary')
+router.post('/',(req,res) =>{
+    const { date, weather,visibility,comment} = req.body
+    const newDiaryEntry = diaryServices.addDiary({
+        date,
+        weather,
+        visibility,
+        comment
+    })
+
+    res.json(newDiaryEntry)
 });
 
 export default router;

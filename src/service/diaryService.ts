@@ -1,6 +1,6 @@
 //utilizo el service para la ruta para repasar la logica de la ruta con la declaracion de la ruta en si misma 
 
-import { DiaryEntry,NonSensitiveInfoDiaryEntry } from '../types';
+import { DiaryEntry,NonSensitiveInfoDiaryEntry,  NewDiaryEntry } from '../types';
 import diaryData from './diaries.json';
 
 //diaryData as Array<DiaryEntry> al hacer esto hago incersion de tipos indicandole a TS que yo afirmo el comportamiento de ese json a
@@ -16,7 +16,7 @@ export const findById = (id:number) : NonSensitiveInfoDiaryEntry | undefined =>{
         const {comment, ...restOfDiary} = entry 
         return restOfDiary
     }
-    
+
     return undefined
 }
 
@@ -34,4 +34,11 @@ export const getEntriesWithOutSensitiveInfo = () : Array<NonSensitiveInfoDiaryEn
     })
 }
 
-export const addEntry = () : undefined => undefined 
+export const addDiary = (newDiaryEntry :NewDiaryEntry) : DiaryEntry => {
+    const newDiary = {
+        id: Math.max(...diaries.map(d => d.id)) + 1,
+        ...newDiaryEntry
+    }
+    diaries.push(newDiary)
+    return newDiary
+} 
