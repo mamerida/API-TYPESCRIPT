@@ -1,6 +1,6 @@
 //utilizo el service para la ruta para repasar la logica de la ruta con la declaracion de la ruta en si misma 
 
-import { DiaryEntry,NonSensitiveInfoDiaryEntry,  NewDiaryEntry } from '../types';
+import { DiaryEntry,NonSensitiveInfoDiaryEntry,  NewDiaryEntry } from '../types'
 import diaryData from './diaries.json';
 
 //diaryData as Array<DiaryEntry> al hacer esto hago incersion de tipos indicandole a TS que yo afirmo el comportamiento de ese json a

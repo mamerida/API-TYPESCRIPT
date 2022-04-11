@@ -1,5 +1,6 @@
 import  express from "express";
 import * as diaryServices from '../service/diaryService';
+import toNewDiaryEntry from '../utils';
 
 const router = express.Router();
 
@@ -19,15 +20,21 @@ router.get('/:id',(req,res) =>{
 
 //agrega entradas
 router.post('/',(req,res) =>{
-    const { date, weather,visibility,comment} = req.body
-    const newDiaryEntry = diaryServices.addDiary({
-        date,
-        weather,
-        visibility,
-        comment
-    })
-
-    res.json(newDiaryEntry)
+    try{
+        const newDiaryEntry = toNewDiaryEntry(req.body)
+        const addedDiaryEntry = diaryServices.addDiary(newDiaryEntry)
+        res.json(addedDiaryEntry)
+    }catch(e:any){
+        res.status(400).send(e.message)
+    }  
 });
 
 export default router;
+
+//Al verificar en la creacion el objeto antes de hacer de ir al servise ya no es necesario verificar el tipo 
+// const addedDiaryEntry = diaryServices.addDiary({
+//     date,
+//     weather,
+//     visibility,
+//     comment
+// })
